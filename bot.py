@@ -41,6 +41,8 @@ def add(m):
         if text=='':
             text='Список пуст!\n'
         bot.send_message(m.chat.id, 'Список отложенных сообщений:\n\n'+text+'\nЧтобы просмотреть сообщение: `/show code`\nЧтобы удалить сообщение: `/del code`', parse_mode='markdown')
+    elif m.text=='/start':
+        bot.send_message(m.chat.id, 'Статус бота: работает. Откройте список команд для использования бота.')
     elif m.text[:5]=='/show':
         try:
             code=m.text.split(' ')[1]
