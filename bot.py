@@ -42,7 +42,7 @@ def add(m):
         users.update_one({'id':user['id']},{'$set':{'status':'addtime'}})
         users.update_one({'id':user['id']},{'$set':{'code':msg['code']}})
         bot.send_message(m.chat.id, 'Отлично! А теперь выберите, через сколько времени я пришлю это вам. Формат:\n1d2h3m33s'+
-                         '- бот пришлёт вам сообщение через 1 день, 2 часа, 3 минуты и 33 секунды.')
+                         ' - бот пришлёт вам сообщение через 1 день, 2 часа, 3 минуты и 33 секунды.')
     elif user['status']=='addtime':
         try:
             days=int(m.text.split('d')[0])
@@ -75,13 +75,13 @@ def add(m):
             text+=str(days)+' дней, '
         if hours!=None:
             ftime+=hours*3600
-            text=str(hours)+' часов, '
+            text+=str(hours)+' часов, '
         if minutes!=None:
             ftime+=minutes*60
-            text=str(minutes)+' минут, '
+            text+=str(minutes)+' минут, '
         if secs!=None:
             ftime+=secs
-            text=str(secs)+' секунд, '
+            text+=str(secs)+' секунд, '
         if ftime!=ctime:
             text=text[:len(text)-2]
             text+='.'
