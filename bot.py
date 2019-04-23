@@ -129,9 +129,12 @@ def timecheck():
     for ids in users.find({}):
         user=ids
         for idss in user['futuremsgs']:
-            if user['futuremsgs'][idss]['time']<=globaltime:
-                bot.send_message(user['id'], user['futuremsgs'][idss]['msg'])
-                users.update_one({'id':user['id']},{'$unset':{'futuremsgs.'+idss:1}})
+            try:
+                if user['futuremsgs'][idss]['time']<=globaltime:
+                    bot.send_message(user['id'], user['futuremsgs'][idss]['msg'])
+                    users.update_one({'id':user['id']},{'$unset':{'futuremsgs.'+idss:1}})
+            except:
+                pass
     t=threading.Timer(3, timecheck)
     t.start()
 
