@@ -39,8 +39,8 @@ def add(m):
             msg=user['futuremsgs'][ids]
             text+='`'+msg['code']+'`\n'
         if text=='':
-            text='Список пуст!'
-        bot.send_message(m.chat.id, 'Список отложенных сообщений:\n'+text+'\nЧтобы просмотреть сообщение: `/show code`\nЧтобы удалить сообщение: `/del code`', parse_mode='markdown')
+            text='Список пуст!\n'
+        bot.send_message(m.chat.id, 'Список отложенных сообщений:\n\n'+text+'\nЧтобы просмотреть сообщение: `/show code`\nЧтобы удалить сообщение: `/del code`', parse_mode='markdown')
     elif m.text[:5]=='/show':
         try:
             code=m.text.split(' ')[1]
