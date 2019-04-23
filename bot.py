@@ -33,6 +33,29 @@ def add(m):
     if user==None:
         users.insert_one(createuser(m.from_user))
         user=users.find_one({'id':m.from_user.id})
+    if m.text[:5]=='/list':
+        text=''
+        for ids in user['futuremsgs']:
+            msg=user['futuremsgs'][ids]
+            text+='`'+msg['code']+'`\n'
+        if text=='':
+            text='Список пуст!'
+        bot.send_message(m.chat.id, 'Список отложенных сообщений:\n'+text+'\nЧтобы просмотреть сообщение: `/show code`\nЧтобы удалить сообщение: `/del code`', parse_mode='markdown')
+    if m.text[:5]=='/show':
+        try:
+            code=m.text.split(' ')[1]
+            msg=user['futuremsgs'][code]
+            bot.send_message(m.chat.id, msg['msg'])
+        except:
+            bot.send_message(m.chat.id, 'Сообщение не найдено!')
+    if m.text[:4]=='/del':
+        try:
+            code=m.text.split(' ')[1]
+            msg=user['futuremsgs'][code]
+            users.update_one({'id':user['id']},{'$unset':{'futuremsgs.'+code:1}})
+            bot.send_message(m.chat.id, 'Сообщение "'+msg['msg']+'" успешно удалено!')
+        except:
+            bot.send_message(m.chat.id, 'Сообщение не найдено!')
     if m.text[:4]=='/add':
         users.update_one({'id':user['id']},{'$set':{'status':'adding'}})
         bot.send_message(m.chat.id, 'Напишите сообщение, которое я отправлю вам позже.')
