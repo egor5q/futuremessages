@@ -49,24 +49,20 @@ def add(m):
             m.text=m.text.split('d')[1]
         except:
             days=None
-            bot.send_message(441399484, traceback.format_exc())
         try:
             hours=int(m.text.split('h')[0])
             m.text=m.text.split('h')[1]
         except:
             hours=None
-            bot.send_message(441399484, traceback.format_exc())
         try:
             minutes=int(m.text.split('m')[0])
             m.text=m.text.split('m')[1]
         except:
             minutes=None
-            bot.send_message(441399484, traceback.format_exc())
         try:
             secs=int(m.text.split('s')[0])
         except:
             secs=None
-            bot.send_message(441399484, traceback.format_exc())
         ftime=time.time()+3*3600
         ctime=ftime
         text=''
